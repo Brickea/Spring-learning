@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    scope - singleton 单例模式(默认) prototype 多例模式-->
+    <!--    获取bean实例 - 无参构造-->
+    <!--    <bean id="personDao" class="quickStart.dao.impl.PersonDaoImpl" scope="singleton" init-method="init" destroy-method="destroy"/>-->
+
+    <!--    获取bean实例方法 - 工厂静态方法-->
+    <!--    <bean id="personDao" class="quickStart.factory.StaticFactory" factory-method="getPersonDao"/>-->
+
+    <!--    获取bean实例方法 - 工厂实例方法-->
+    <!--    需要先有工厂实例-->
+    <!--    <bean id="factory" class="quickStart.factory.DynamicFactory"/>-->
+    <!--    <bean id="personDao" class="quickStart.factory.DynamicFactory" factory-bean="factory"-->
+    <!--          factory-method="getPersonDao"/>-->
+
+    <!--    不适用依赖注入-->
+    <!--    <bean id="personDao" class="quickStart.dao.impl.PersonDaoImpl"/>-->
+    <!--    <bean id="personService" class="quickStart.service.impl.PersonServiceImpl"/>-->
+
+    <!--    使用依赖注入-->
+    <!--    <bean id="personDao" class="quickStart.dao.impl.PersonDaoImpl" init-method="init" destroy-method="destroy"/>-->
+
+    <!--    <bean id="personService" class="quickStart.service.impl.PersonServiceImpl">-->
+    <!--        <property name="personDao" ref="personDao"/>-->
+    <!--    </bean>-->
+
+    <!--    p命名空间属性注入-->
+    <!--    <bean id="personDao" class="quickStart.dao.impl.PersonDaoImpl" init-method="init" destroy-method="destroy"/>-->
+
+    <!--    <bean id="personService" class="quickStart.service.impl.PersonServiceImpl" p:personDao-ref="personDao"/>-->
+
+
+
+    <!--    有参构造函数注入-->
+    <bean id="personDao" class="quickStart.dao.impl.PersonDaoImpl" init-method="init" destroy-method="destroy">
+        <!--        primary 类型的数据注入-->
+        <property name="username" value="Brickea"/>
+        <property name="age" value="2"/>
+        <!--        引用，集合类型注入-->
+        <property name="personMap">
+            <map>
+                <entry key="p1"  value-ref="person1"/>
+            </map>
+        </property>
+
+        <property name="properties">
+            <props>
+                <prop key="property1">My property</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="person1" class="quickStart.domin.Person">
+        <property name="username" value="Brickea"/>
+        <property name="addr" value="Boston"/>
+    </bean>
+
+    <bean id="personService" class="quickStart.service.impl.PersonServiceImpl">
+        <constructor-arg name="personDao" ref="personDao"/>
+    </bean>
+
+
+</beans>
