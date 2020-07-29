@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--    普通bean注入-->
+    <!--    <bean id="mysqlComboPoolDS" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+    <!--        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>-->
+    <!--        <property name="jdbcUrl"-->
+    <!--                  value="jdbc:mysql://localhost:3306/mydb?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"/>-->
+    <!--        <property name="user" value="root"/>-->
+    <!--        <property name="password" value="fjwwzx970814"/>-->
+    <!--    </bean>-->
+
+    <!--    加载外部的properties文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--    使用外部properties文件变量注入-->
+    <bean id="mysqlComboPoolDS" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!--        这里使用SpEL来获取properties文件中的变量-->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl"
+                  value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--    普通创建bean-->
+    <!--    <bean id="personDao" class="dao.impl.PersonDaoImpl"/>-->
+
+    <!--    <bean id="personService" class="service.impl.PersonServiceImpl">-->
+    <!--        <constructor-arg name="personDao" ref="personDao"/>-->
+    <!--    </bean>-->
+
+    <!--    为了使用注解配置，需要配置组件扫描，作用是指定哪个包下及其子包下的Bean需要进行扫描以识别使用注解配置的类，字段，和方法-->
+    <context:component-scan base-package="springicoanno"/>
+
+    <!--    新注解用来处理一下的问题-->
+    <!--    对于非自定义的bean配置-->
+    <!--    加载properties文件的配置-->
+    <!--    组件扫描的配置-->
+    <!--    引入其他文件-->
+
+    <!--    <import resource="applicationContext-other.xml"/>-->
+</beans>

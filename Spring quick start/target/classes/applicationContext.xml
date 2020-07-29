@@ -36,32 +36,35 @@
 
 
     <!--    有参构造函数注入-->
-    <bean id="personDao" class="quickStart.dao.impl.PersonDaoImpl" init-method="init" destroy-method="destroy">
-        <!--        primary 类型的数据注入-->
-        <property name="username" value="Brickea"/>
-        <property name="age" value="2"/>
-        <!--        引用，集合类型注入-->
-        <property name="personMap">
-            <map>
-                <entry key="p1"  value-ref="person1"/>
-            </map>
-        </property>
+<!--    <bean id="personDao" class="quickStart.dao.impl.PersonDaoImpl" init-method="init" destroy-method="destroy">-->
+    <!--        &lt;!&ndash;        primary 类型的数据注入&ndash;&gt;-->
+    <!--        <property name="username" value="Brickea"/>-->
+    <!--        <property name="age" value="2"/>-->
+    <!--        &lt;!&ndash;        引用，集合类型注入&ndash;&gt;-->
+    <!--        <property name="personMap">-->
+    <!--            <map>-->
+    <!--                <entry key="p1"  value-ref="person1"/>-->
+    <!--            </map>-->
+    <!--        </property>-->
 
-        <property name="properties">
-            <props>
-                <prop key="property1">My property</prop>
-            </props>
-        </property>
-    </bean>
+    <!--        <property name="properties">-->
+    <!--            <props>-->
+    <!--                <prop key="property1">My property</prop>-->
+    <!--            </props>-->
+    <!--        </property>-->
+    <!--    </bean>-->
 
-    <bean id="person1" class="quickStart.domin.Person">
-        <property name="username" value="Brickea"/>
-        <property name="addr" value="Boston"/>
-    </bean>
+    <!--    <bean id="person1" class="quickStart.domin.Person">-->
+    <!--        <property name="username" value="Brickea"/>-->
+    <!--        <property name="addr" value="Boston"/>-->
+    <!--    </bean>-->
 
-    <bean id="personService" class="quickStart.service.impl.PersonServiceImpl">
-        <constructor-arg name="personDao" ref="personDao"/>
-    </bean>
+    <!--    <bean id="personService" class="quickStart.service.impl.PersonServiceImpl">-->
+    <!--        <constructor-arg name="personDao" ref="personDao"/>-->
+    <!--    </bean>-->
+
+    <import resource="applicationContext-person.xml"/>
+    <import resource="applicationContext-service.xml"/>
 
 
 </beans>
